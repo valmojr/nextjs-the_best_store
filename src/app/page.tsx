@@ -1,3 +1,10 @@
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
 export default async function Home() {
   const getHelloWorldMessage = async () => {
     const response = await fetch("http://localhost:3000/api");
@@ -7,5 +14,16 @@ export default async function Home() {
     return data as { message: string };
   };
 
-  return <main>{(await getHelloWorldMessage()).message}</main>;
+  return (
+    <>
+      <CardHeader className="justify-center items-center">
+        <div className={"flex flex-col items-end"}>
+          <CardTitle className={"italic text-lg"}>
+            &quot;O Sucesso não aceita preguiça&quot;
+          </CardTitle>
+          <CardDescription className={"mx-4"}>João Adibe</CardDescription>
+        </div>
+      </CardHeader>
+    </>
+  );
 }

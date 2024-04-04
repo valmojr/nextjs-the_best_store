@@ -39,8 +39,12 @@ export default function RootLayout({
               width={100}
               height={100}
             />
-            <CardTitle>The Best Açaí</CardTitle>
-            <CardDescription>Controle Interno POA 01</CardDescription>
+            <CardTitle className="text-[0px] lg:text-2xl">
+              The Best Açaí
+            </CardTitle>
+            <CardDescription className="text-[0px] lg:text-sm">
+              Controle Interno POA 01
+            </CardDescription>
           </CardHeader>
           <CardContent className={"space-y-3"}>
             <LinkButton href="/waste" className="w-full">
@@ -53,7 +57,7 @@ export default function RootLayout({
         </Card>
         <Card
           className={cn(
-            "flex flex-col border rounded-lg w-full h-full items-center justify-start lg:justify-center",
+            "flex flex-col border rounded-lg w-full min-h-fit h-[460px] max-h-full items-center justify-start lg:justify-center",
             "lg:w-[600px] lg:h-full"
           )}
         >

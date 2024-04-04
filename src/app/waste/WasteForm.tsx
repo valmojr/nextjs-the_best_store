@@ -120,7 +120,7 @@ export function WasteForm({
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="">
                   <Command>
                     <CommandInput placeholder="Procurar produto..." />
                     <CommandList>
@@ -209,7 +209,7 @@ export function WasteForm({
             isSubmitted ? "bg-emerald-400" : ""
           )}
         >
-          Submit
+          Anotar
         </Button>
       </form>
     </Form>

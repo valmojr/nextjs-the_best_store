@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Product {
-  id         String   @id @unique @default(uuid())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now())
-  name       String
-  count      Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
-  Waste      Waste[]
+  id           String         @id @unique @default(uuid())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  name         String
+  count        Int
+  category     Category       @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  Waste        Waste[]
+  ProductCount ProductCount[]
 }
 
 model Category {
@@ -34,4 +35,23 @@ model Waste {
   date      DateTime
   product   Product? @relation(fields: [productId], references: [id])
   productId String
+}
+
+model ProductCount {
+  id             String        @id @unique @default(uuid())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  product        Product       @relation(fields: [productId], references: [id])
+  count          Int
+  productId      String
+  StorageCount   StorageCount? @relation(fields: [storageCountId], references: [id])
+  storageCountId String?
+}
+
+model StorageCount {
+  id           String         @id @unique @default(uuid())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now())
+  countDate    DateTime       @default(now())
+  productCount ProductCount[]
 }

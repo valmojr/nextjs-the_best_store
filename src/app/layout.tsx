@@ -3,14 +3,15 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import {
+  Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
 import LinkButton from "@/components/ui/LinkButton";
-import { Card } from "@radix-ui/themes";
 import Image from "next/image";
+import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,14 +32,26 @@ export default function RootLayout({
           "flex flex-col lg:flex-row flex-nowrap items-start justify-start lg:justify-center w-full h-screen p-4 gap-3"
         )}
       >
-        <Card className={"w-full border rounded-md lg:w-[320px]"}>
-          <CardHeader className="flex flex-col justify-center items-center">
-            <Image
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSba8irPFrw5A3IrmfMyRjTAoqZPOqfvxDvRQa7Vwz0g&s"
-              alt="the best"
-              width={100}
-              height={100}
-            />
+        <Card
+          className={cn(
+            "flex flex-row lg:flex-col flex-nowrap w-full",
+            "lg:w-[320px] h-[150px] lg:h-fit"
+          )}
+        >
+          <CardHeader
+            className={cn(
+              "flex flex-col justify-center items-center",
+              "lg:w-full py-0 space-y-0"
+            )}
+          >
+            <Link href={"/"}>
+              <Image
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSba8irPFrw5A3IrmfMyRjTAoqZPOqfvxDvRQa7Vwz0g&s"
+                alt="the best"
+                width={150}
+                height={150}
+              />
+            </Link>
             <CardTitle className="text-[0px] lg:text-2xl">
               The Best Açaí
             </CardTitle>
@@ -46,7 +59,12 @@ export default function RootLayout({
               Controle Interno POA 01
             </CardDescription>
           </CardHeader>
-          <CardContent className={"space-y-3"}>
+          <CardContent
+            className={cn(
+              "flex flex-col gap-3 flex-nowrap justify-center items-center",
+              "w-full h-fit p-4 my-auto"
+            )}
+          >
             <LinkButton href="/waste" className="w-full">
               Desperdício
             </LinkButton>
@@ -57,7 +75,7 @@ export default function RootLayout({
         </Card>
         <Card
           className={cn(
-            "flex flex-col border rounded-lg w-full min-h-fit h-[460px] max-h-full items-center justify-start lg:justify-center",
+            "flex flex-col border rounded-lg w-full min-h-fit h-full max-h-full items-center justify-start lg:justify-center",
             "lg:w-[600px] lg:h-full"
           )}
         >

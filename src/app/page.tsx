@@ -18,10 +18,10 @@ export default async function Home() {
     <>
       <CardHeader className="justify-center items-center">
         <div className={"flex flex-col items-end"}>
-          <CardTitle className={"italic text-2xl"}>
+          <CardTitle className={"italic lg:text-2xl"}>
             &quot;O Sucesso não aceita preguiça&quot;
           </CardTitle>
-          <CardDescription className={"mx-4 text-lg"}>
+          <CardDescription className={"mx-4 lg:text-lg"}>
             João Adibe
           </CardDescription>
         </div>

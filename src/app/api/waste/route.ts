@@ -79,13 +79,7 @@ export async function PATCH(request: Request) {
   }
 }
 
-export async function DELETE(
-  request: NextApiRequest,
-  response: NextApiResponse
-) {
-  const adeq = request.body as unknown as NodeJS.ReadableStream;
-  adeq.pipe(response);
-
+export async function DELETE(request: Request) {
   const data = StringToJSON(await GetStreamData(request?.body));
 
   if (!data.waste) {
@@ -94,11 +88,11 @@ export async function DELETE(
 
   const { waste } = data;
 
-  const deletedWaste = await deleteWaste(waste);
+  const wasteOnDatabase = await deleteWaste(waste);
 
-  if (deletedWaste) {
-    return NextResponse.json({ waste: deletedWaste });
-  } else {
-    return NextResponse.json({ error: "Internal Server Error", status: 500 });
+  if (!wasteOnDatabase) {
+    return NextResponse.json({ error: "No Waste found", status: 404 });
   }
+
+  return NextResponse.json({ waste: wasteOnDatabase });
 }

@@ -20,6 +20,7 @@ export default async function WastePage() {
 
   return (
     <div className="mt-3">
+      <h1 className="text-2xl mb-3">Controle de Desperdício</h1>
       <WasteForm products={await getProductsFromDatabase()} />
     </div>
   );

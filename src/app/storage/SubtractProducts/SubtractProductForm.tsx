@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { useForm, useFormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -35,10 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Calendar } from "@/components/ui/calendar";
 
 export default function SubtractProductForm({
   products,
@@ -47,7 +38,7 @@ export default function SubtractProductForm({
 }) {
   const FormSchema = z.object({
     productId: z.string().uuid({ message: "ID de produto inválido" }),
-    quantity: z.number().min(0, { message: "quantidade mínima" }),
+    quantity: z.number().min(1, { message: "quantidade mínima" }),
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({

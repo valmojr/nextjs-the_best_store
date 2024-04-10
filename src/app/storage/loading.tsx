@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import SubtractProductForm from "./SubtractProductForm";
+import SubtractProductForm from "./SubtractProducts/SubtractProductForm";
 import { getAllProducts } from "../api/product/functions";
 import { Skeleton } from "@/components/ui/skeleton";
 

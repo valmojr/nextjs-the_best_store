@@ -4,17 +4,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import SubtractProductForm from "./SubtractProductForm";
+import SubtractProductForm from "./SubtractProducts/SubtractProductForm";
 import { getAllProducts } from "../api/product/functions";
 import { getAllCategories } from "../api/category/functions";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Category } from "@prisma/client";
+import AddProduct from "./AddProduct/AddProduct";
+import CheckStorage from "./CheckStorage/CheckStorage";
+import { Button } from "@/components/ui/button";
+import LinkButton from "@/components/ui/LinkButton";
 
 export default async function StoragePage() {
-  async function getProductsFromDatabase() {
-    const categories = await getAllCategories();
-    const products = await getAllProducts();
+  const categories = await getAllCategories();
+  const products = await getAllProducts();
 
+  async function getProductsFromDatabase() {
     return products.map((product) => {
       const productCategory = categories.filter(
         (category) => category.id == product.categoryId
@@ -26,7 +28,7 @@ export default async function StoragePage() {
     });
   }
 
-  const products = await getProductsFromDatabase();
+  const productLabels = await getProductsFromDatabase();
 
   return (
     <>
@@ -35,7 +37,10 @@ export default async function StoragePage() {
         <CardDescription>Retiradas e Controle</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col justify-center items-center">
-        <SubtractProductForm products={products} />
+        <div className="flex flex-row pb-3">
+          <LinkButton href={"/storage/CheckStorage"}>Contar Estoque</LinkButton>
+        </div>
+        <SubtractProductForm products={productLabels} />
       </CardContent>
     </>
   );

@@ -7,9 +7,6 @@ import {
 import SubtractProductForm from "./SubtractProducts/SubtractProductForm";
 import { getAllProducts } from "../api/product/functions";
 import { getAllCategories } from "../api/category/functions";
-import AddProduct from "./AddProduct/AddProduct";
-import CheckStorage from "./CheckStorage/CheckStorage";
-import { Button } from "@/components/ui/button";
 import LinkButton from "@/components/ui/LinkButton";
 
 export default async function StoragePage() {

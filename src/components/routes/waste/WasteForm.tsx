@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, ClipboardPenLine } from "lucide-react";
 import { useForm, useFormState } from "react-hook-form";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
@@ -245,7 +245,8 @@ export function WasteForm({
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full duration-150 cursor-pointer">
+          <Button type="submit" className="w-full gap-2 cursor-pointer">
+            <ClipboardPenLine />
             Anotar
           </Button>
         </form>

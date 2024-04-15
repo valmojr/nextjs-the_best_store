@@ -20,7 +20,7 @@ export async function getProductCount(
   });
 }
 
-export async function getAllCategories() {
+export async function getAllProductCounts() {
   return await prisma.productCount.findMany();
 }
 

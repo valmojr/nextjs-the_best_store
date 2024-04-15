@@ -52,7 +52,7 @@ export async function getStorageCount(
   });
 }
 
-export async function getAllCategories() {
+export async function getAllStorageCounts() {
   return await prisma.storageCount.findMany();
 }
 

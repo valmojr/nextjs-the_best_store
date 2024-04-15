@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/card";
 import LinkButton from "@/components/ui/LinkButton";
 import Image from "next/image";
-import Link from "next/link";
+import { Home, PackageOpen, Trash2 } from "lucide-react";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ModeToggle } from "@/components/ModeToggle";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,55 +34,77 @@ export default function RootLayout({
           "flex flex-col lg:flex-row flex-nowrap items-start justify-start lg:justify-center w-full h-screen p-4 gap-3"
         )}
       >
-        <Card
-          className={cn(
-            "flex flex-row lg:flex-col flex-nowrap w-full",
-            "lg:w-[320px] h-[150px] lg:h-fit"
-          )}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          <CardHeader
+          <Card
             className={cn(
-              "flex flex-col justify-center items-center",
-              "lg:w-full py-0 space-y-0"
+              "flex flex-row lg:flex-col flex-nowrap w-full",
+              "lg:w-[320px] h-[150px] lg:h-fit"
             )}
           >
-            <Link href={"/"}>
+            <CardHeader
+              className={cn(
+                "flex flex-row lg:flex-col justify-center items-center",
+                "lg:w-full p-0 lg:py-2 space-y-0"
+              )}
+            >
               <Image
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSba8irPFrw5A3IrmfMyRjTAoqZPOqfvxDvRQa7Vwz0g&s"
+                src={"/logo.png"}
                 alt="the best"
-                width={150}
-                height={150}
+                className="ml-2"
+                width={100}
+                height={100}
               />
-            </Link>
-            <CardTitle className="text-[0px] lg:text-2xl">
-              The Best Açaí
-            </CardTitle>
-            <CardDescription className="text-[0px] lg:text-sm">
-              Controle Interno POA 01
-            </CardDescription>
-          </CardHeader>
-          <CardContent
+              <CardTitle className="text-[0px] lg:text-2xl">
+                The Best Açaí
+              </CardTitle>
+              <CardDescription className="text-[0px] lg:text-sm">
+                Controle Interno POA 01
+              </CardDescription>
+            </CardHeader>
+            <CardContent
+              className={cn(
+                "flex lg:flex-col gap-3 flex-nowrap justify-center items-center",
+                "w-full lg:h-fit p-4 my-auto"
+              )}
+            >
+              <LinkButton
+                href="/"
+                className="w-full gap-1 h-16 lg:h-10 lg:text-[1rem] text-[0rem]"
+              >
+                <Home />
+                Desperdício
+              </LinkButton>
+              <LinkButton
+                href="/waste"
+                className="w-full gap-1 h-16 lg:h-10 lg:text-[1rem] text-[0rem]"
+              >
+                <Trash2 />
+                Desperdício
+              </LinkButton>
+              <LinkButton
+                href="/storage"
+                className="w-full gap-1 h-16 lg:h-10 lg:text-[1rem] text-[0px]"
+              >
+                <PackageOpen />
+                Estoque
+              </LinkButton>
+            </CardContent>
+          </Card>
+          <Card
             className={cn(
-              "flex flex-col gap-3 flex-nowrap justify-center items-center",
-              "w-full h-fit p-4 my-auto"
+              "flex flex-col border rounded-lg w-full min-h-fit h-full max-h-full items-center justify-start lg:justify-center",
+              "lg:w-[600px] lg:h-full"
             )}
           >
-            <LinkButton href="/waste" className="w-full">
-              Desperdício
-            </LinkButton>
-            <LinkButton href="/storage" className="w-full">
-              Estoque
-            </LinkButton>
-          </CardContent>
-        </Card>
-        <Card
-          className={cn(
-            "flex flex-col border rounded-lg w-full min-h-fit h-full max-h-full items-center justify-start lg:justify-center",
-            "lg:w-[600px] lg:h-full"
-          )}
-        >
-          {children}
-        </Card>
+            {children}
+          </Card>
+          <ModeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -77,7 +77,7 @@ export default function RootLayout({
                 className="w-full gap-1 h-16 lg:h-10 lg:text-[1rem] text-[0rem]"
               >
                 <Home />
-                Desperdício
+                Home
               </LinkButton>
               <LinkButton
                 href="/waste"

@@ -43,8 +43,9 @@ const FormSchema = z.object({
       invalid_type_error: "Apenas numeros",
       required_error: "Preciso do valor do peso",
     })
-    .min(0, { message: "valor invalid" }),
+    .min(0, { message: "valor inválido" }),
   date: z.date({
+    invalid_type_error: "Precisa ser uma data válida",
     required_error: "Preciso da data",
   }),
   plate: z.boolean().default(true),
@@ -71,12 +72,15 @@ export function WasteForm({
 
   const { isSubmitting, isSubmitted } = useFormState({ control: form.control });
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("Waste =>", data);
+  async function onSubmit({ plate, ...data }: z.infer<typeof FormSchema>) {
+    const dataWaste = {
+      ...data,
+      weight: plate ? data.weight - 159 : data.weight,
+    };
 
     const response = await fetch("http://localhost:3000/api/waste", {
       method: "POST",
-      body: JSON.stringify({ waste: data }),
+      body: JSON.stringify({ waste: dataWaste }),
     });
 
     const { waste } = (await response.json()) as { waste: Waste };
@@ -136,9 +140,7 @@ export function WasteForm({
                     onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>Medido em cuba</FormLabel>
-                </div>
+                <FormLabel>Medido em cuba</FormLabel>
               </FormItem>
             )}
           />
@@ -155,7 +157,7 @@ export function WasteForm({
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          "w-[200px] justify-between",
+                          "w-full justify-between",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -163,7 +165,7 @@ export function WasteForm({
                           ? products.find(
                               (product) => product.value === field.value
                             )?.label
-                          : "Select product"}
+                          : "Selecionar Produto"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </FormControl>
@@ -198,9 +200,6 @@ export function WasteForm({
                     </Command>
                   </PopoverContent>
                 </Popover>
-                <FormDescription className={"text-[0px]"}>
-                  Produto desperdiçado.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -217,7 +216,7 @@ export function WasteForm({
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
+                          "w-full pl-3 text-left font-normal",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -242,9 +241,6 @@ export function WasteForm({
                     />
                   </PopoverContent>
                 </Popover>
-                <FormDescription className="text-[0px] lg:text-sm">
-                  Data do desperdício
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

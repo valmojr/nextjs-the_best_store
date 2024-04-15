@@ -7,7 +7,6 @@ import {
   deleteWaste,
 } from "./functions";
 import GetStreamData, { StringToJSON } from "@/lib/utils";
-import { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET(request: Request) {
   const data = StringToJSON(await GetStreamData(request?.body));

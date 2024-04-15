@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import {
   createProduct,
   getProduct,
@@ -8,75 +7,75 @@ import {
 } from "./functions";
 import GetStreamData, { StringToJSON } from "@/lib/utils";
 
-export async function GET(request: Request) {
+export async function GET(request: Request, response: Response) {
   const { product } = StringToJSON(await GetStreamData(request?.body));
   if (product) {
-    return NextResponse.json(await getProduct(product));
+    return await getProduct(product);
   } else {
-    return NextResponse.json(await getAllProducts());
+    return await getAllProducts();
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, response: Response) {
   const { product } = StringToJSON(await GetStreamData(request?.body));
 
   if (!product) {
-    return NextResponse.json({ error: "Bad Request", status: 401 });
+    return { error: "Bad Request", status: 401 };
   }
 
   const productOnDatabase = await createProduct(product);
 
   if (!productOnDatabase) {
-    return NextResponse.json({ error: "Internal Server Error", status: 500 });
+    return { error: "Internal Server Error", status: 500 };
   }
 
-  return NextResponse.json({ product: productOnDatabase });
+  return { product: productOnDatabase };
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: Request, response: Response) {
   const { product } = StringToJSON(await GetStreamData(request?.body));
 
   if (!product) {
-    return NextResponse.json({ error: "Bad Request", status: 401 });
+    return { error: "Bad Request", status: 401 };
   }
 
   const productIsOnDatabase = await getProduct(product);
 
   if (!productIsOnDatabase) {
-    return NextResponse.json(await createProduct(product));
+    return await createProduct(product);
   } else {
-    return NextResponse.json(await updateProduct(product));
+    return await updateProduct(product);
   }
 }
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: Request, response: Response) {
   const { product } = StringToJSON(await GetStreamData(request?.body));
 
   if (!product) {
-    return NextResponse.json({ error: "Bad Request", status: 401 });
+    return { error: "Bad Request", status: 401 };
   }
 
   const updatedProduct = await updateProduct(product);
 
   if (updatedProduct) {
-    return NextResponse.json({ product: updatedProduct });
+    return { product: updatedProduct };
   } else {
-    return NextResponse.json({ error: "Internal Server Error", status: 500 });
+    return { error: "Internal Server Error", status: 500 };
   }
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(request: Request, response: Response) {
   const { product } = StringToJSON(await GetStreamData(request?.body));
 
   if (!product) {
-    return NextResponse.json({ error: "Bad Request", status: 401 });
+    return { error: "Bad Request", status: 401 };
   }
 
   const deletedProduct = await deleteProduct(product);
 
   if (deletedProduct) {
-    return NextResponse.json({ product: deletedProduct });
+    return { product: deletedProduct };
   } else {
-    return NextResponse.json({ error: "Internal Server Error", status: 500 });
+    return { error: "Internal Server Error", status: 500 };
   }
 }
